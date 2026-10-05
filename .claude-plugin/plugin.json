@@ -1,0 +1,7 @@
+{
+  "name": "gabarito-militonto",
+  "version": "0.1.0",
+  "skills": [
+    "./skills/"
+  ]
+}

@@ -1,0 +1,192 @@
+---
+_harness_template: "CLAUDE.md.template"
+_harness_version: "4.3.3"
+---
+
+# CLAUDE.md - Claude Code Instructions
+
+> **Project**: gabarito-militonto
+> **Created**: 2026-10-05
+> **Setup locale**: English
+
+---
+
+## Read This First
+
+Read `AGENTS.md` before starting work.
+
+- Development flow overview
+- Role boundaries
+- Prohibited actions
+
+This file contains only Claude Code-specific instructions.
+Apply the Task Contract in `AGENTS.md` throughout execution and handoff.
+
+---
+
+## 1. Claude Code Scope
+
+### Work You Own
+
+- Implement changes that span 4+ files or more than 100 lines
+- Commit and push scoped changes
+- Confirm CI is green, with up to 3 automatic fix attempts
+- Deploy to staging when applicable
+
+### Work You Must Not Do
+
+- Do not deploy directly to production. Cursor / PM owns that decision.
+- Do not work outside the requested scope.
+- Do not change security settings unless explicitly requested.
+
+---
+
+## 2. Commit Message Convention
+
+```text
+feat: add a new feature
+fix: fix a bug
+docs: update documentation
+refactor: refactor code
+test: add or update tests
+chore: maintenance work
+```
+
+Example: `feat: add user authentication`
+
+---
+
+## 3. CI Failure Handling
+
+### Flow
+
+1. Detect the CI failure.
+2. Read the error log.
+3. Fix -> commit -> rerun CI.
+4. After 3 failed attempts, escalate to Cursor / PM.
+
+### Escalation Report Format
+
+```markdown
+## CI Failure Escalation
+
+**Failed attempts**: 3
+**Branch**: {{branch}}
+
+### Error Summary
+[Summarize the CI error]
+
+### Fixes Tried
+1. [Fix 1]
+2. [Fix 2]
+3. [Fix 3]
+
+### Likely Cause
+[State the best current hypothesis]
+
+### Request For Cursor / PM
+[Ask for the specific decision or context needed]
+```
+
+---
+
+## 4. Handoff Protocol
+
+### Cursor -> Claude Code
+
+```markdown
+## Work Request
+- **Outcome**: What the user needs to be true
+- **Task summary**: Specific work to complete, or assessment to deliver
+- **Scope**: Owned files and areas; excluded work
+- **Definition of done**: Clear acceptance criteria
+- **Constraints and evidence**: Relevant decisions, authorization boundaries, and input or verification paths
+```
+
+### Claude Code -> Cursor
+
+Use `/handoff-to-cursor`, or report in this shape:
+Use "Work Complete" only when completion criteria are verified. Otherwise use
+"Work Status" and state the remaining work or blocker.
+
+```markdown
+## Work Complete
+
+**Reported at**: YYYY-MM-DD HH:MM
+**Owner**: Claude Code
+
+### Completed Task
+- **Task**: [Task description]
+
+### Changes Made
+1. [Change 1]
+2. [Change 2]
+
+### Changed Files
+| File | Change |
+|------|--------|
+| `path/to/file1` | [Summary] |
+
+### CI Status
+- CI: PASS / FAIL / NOT RUN (with reason)
+
+### Completion Evidence
+- Required checks: [Command, observed result, and evidence path]
+- Unverified criteria or blockers: [State what remains and why]
+- Decisions: [Reason and supporting evidence for material choices]
+
+### Next Actions For Cursor
+1. [ ] Review the change
+2. [ ] Decide on production deploy
+```
+
+---
+
+## 5. Session Routine
+
+### At Session Start
+
+```bash
+git status -sb
+cat Plans.md
+head -50 AGENTS.md
+```
+
+You can also type "session start" to trigger the session skill.
+
+### At Completion
+
+For an authorized commit/push workflow, stage only owned changes after the
+required checks. Keep unrelated edits out of the commit.
+
+```bash
+git add -- path/to/owned-file
+git commit -m "feat: [change summary]"
+git push
+```
+
+Then send the completion report with `/handoff-to-cursor`.
+
+---
+
+## 6. Available Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/sync-status` | Inspect status and propose next actions |
+| `/work` | Execute tasks and update work status |
+| `/handoff-to-cursor` | Send completion report |
+
+---
+
+## 7. Troubleshooting
+
+| Symptom | Action |
+|---------|--------|
+| Task not found | Check `Plans.md` and the supplied request; ask Cursor / PM only for a required decision that cannot be recovered |
+| CI keeps failing | Try 3 fixes, then escalate |
+| Scope is unclear | Read the task contract and project context; continue authorized work and ask only for missing authorization or a material specification decision |
+
+---
+
+*Use this file together with `AGENTS.md`.*
