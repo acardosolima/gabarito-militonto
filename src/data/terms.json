@@ -1,27 +1,51 @@
 [
-  { "id": "strawman", "label": "Strawman", "aliases": ["straw man", "strawmanning"] },
-  { "id": "whataboutism", "label": "Whataboutism", "aliases": ["what about", "whatabout"] },
-  { "id": "ad-hominem", "label": "Ad hominem", "aliases": ["ad-hominem"] },
-  { "id": "slippery-slope", "label": "Slippery slope", "aliases": [] },
-  { "id": "citation-needed", "label": "\"Citation needed\"", "aliases": ["source?", "citation needed"] },
-  { "id": "well-actually", "label": "\"Well, actually...\"", "aliases": ["well actually"] },
-  { "id": "do-your-research", "label": "\"Do your research\"", "aliases": ["do your own research", "dyor"] },
-  { "id": "triggered", "label": "\"Triggered\"", "aliases": [] },
-  { "id": "touch-grass", "label": "\"Touch grass\"", "aliases": [] },
-  { "id": "virtue-signal", "label": "Virtue signaling", "aliases": ["virtue signalling", "virtue signal"] },
-  { "id": "echo-chamber", "label": "Echo chamber", "aliases": [] },
-  { "id": "sealioning", "label": "Sealioning", "aliases": ["sea lioning"] },
-  { "id": "gish-gallop", "label": "Gish gallop", "aliases": [] },
-  { "id": "false-equivalence", "label": "False equivalence", "aliases": ["false equivalency"] },
-  { "id": "no-true-scotsman", "label": "No true Scotsman", "aliases": [] },
-  { "id": "appeal-to-authority", "label": "Appeal to authority", "aliases": [] },
-  { "id": "moving-goalposts", "label": "Moving the goalposts", "aliases": ["move the goalposts"] },
-  { "id": "both-sides", "label": "\"Both sides\"", "aliases": [] },
-  { "id": "cope", "label": "\"Cope\"", "aliases": ["coping"] },
-  { "id": "ratio", "label": "\"Ratio\"", "aliases": ["ratioed"] },
-  { "id": "its-giving", "label": "\"It's giving...\"", "aliases": ["its giving"] },
-  { "id": "not-a-good-look", "label": "\"Not a good look\"", "aliases": [] },
-  { "id": "deleted-this", "label": "\"Delete this\"", "aliases": ["delete this"] },
-  { "id": "ratio-this", "label": "Quote-tweet pile-on", "aliases": ["quote tweet", "qrt"] },
-  { "id": "screenshot-this", "label": "\"Screenshot this\"", "aliases": [] }
+  { "id": "misoginia", "label": "Misoginia", "aliases": [], "stems": ["misogin"] },
+  { "id": "machismo", "label": "Machismo", "aliases": [], "stems": ["machis"] },
+  { "id": "democracia", "label": "Democracia", "aliases": [], "stems": ["democr"] },
+  {
+    "id": "extrema-direita",
+    "label": "Extrema direita",
+    "aliases": ["extrema-direita", "ultradireita", "ultra-direita"],
+    "stems": []
+  },
+  { "id": "fascismo", "label": "Fascismo", "aliases": [], "stems": ["fascis"] },
+  { "id": "nazismo", "label": "Nazismo", "aliases": ["nazi"], "stems": ["nazis"] },
+  { "id": "milicia", "label": "Milícia", "aliases": [], "stems": ["milicia"] },
+  { "id": "homofobia", "label": "Homofobia", "aliases": [], "stems": ["homofob"] },
+  { "id": "transfobia", "label": "Transfobia", "aliases": [], "stems": ["transfob"] },
+  { "id": "patriarcado", "label": "Patriarcado", "aliases": [], "stems": ["patriarca"] },
+  {
+    "id": "trama-golpista",
+    "label": "Trama golpista",
+    "aliases": ["golpe de estado", "tentativa de golpe"],
+    "stems": ["golpist"]
+  },
+  {
+    "id": "cultura-da-favela",
+    "label": "Cultura da favela",
+    "aliases": ["cultura de favela"],
+    "stems": []
+  },
+  {
+    "id": "luta-de-classes",
+    "label": "Luta de classes",
+    "aliases": ["luta de classe", "guerra de classes"],
+    "stems": []
+  },
+  { "id": "soberania", "label": "Soberania", "aliases": [], "stems": ["soberan"] },
+  { "id": "racismo", "label": "Racismo", "aliases": [], "stems": ["racis"] },
+  {
+    "id": "pobre-de-direita",
+    "label": "Pobre de direita",
+    "aliases": ["pobres de direita"],
+    "stems": []
+  },
+  { "id": "feminismo", "label": "Feminismo", "aliases": [], "stems": ["feminis"] },
+  { "id": "constituicao", "label": "Constituição", "aliases": [], "stems": ["constitu"] },
+  {
+    "id": "ditadura",
+    "label": "Ditadura",
+    "aliases": [],
+    "stems": ["ditadura", "ditador", "ditatorial"]
+  }
 ]

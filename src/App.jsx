@@ -1,23 +1,31 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import BingoCard from './components/BingoCard.jsx'
 import StatsPanel from './components/StatsPanel.jsx'
 import termsData from './data/terms.json'
+import { TERMS_VERSION } from './data/termsVersion.js'
 import { matchTerms } from './lib/match.js'
 import { exportNodeAsPng } from './lib/exportImage.js'
 import {
-  appendSession,
-  clearHistory,
   loadChecked,
   loadHistory,
+  loadTheme,
   saveChecked,
-  saveHistory,
+  saveTheme,
+  upsertSession,
 } from './lib/storage.js'
 import './App.css'
 
 const EXPORT_SIZES = {
-  square: { label: 'Square (1080x1080)', width: 1080, height: 1080 },
-  landscape: { label: 'Landscape (1200x630)', width: 1200, height: 630 },
+  square: { label: 'Quadrado (1080x1080)', width: 1080, height: 1080 },
+  landscape: { label: 'Paisagem (1200x630)', width: 1200, height: 630 },
 }
+
+const NEXT_THEME = { system: 'light', light: 'dark', dark: 'system' }
+const THEME_LABEL = { system: 'Tema: Sistema', light: 'Tema: Claro', dark: 'Tema: Escuro' }
+
+// Stats are local-only for now (see Plans.md backlog: DB-backed persistence).
+// Hidden from the UI until that's in place; flip this to bring the tab back.
+const STATS_ENABLED = false
 
 function today() {
   return new Date().toISOString().slice(0, 10)
@@ -32,9 +40,24 @@ export default function App() {
   const [postRef, setPostRef] = useState('')
   const [exportSizeKey, setExportSizeKey] = useState('square')
   const [savedNotice, setSavedNotice] = useState(false)
+  const [theme, setTheme] = useState(() => loadTheme())
 
   const cardRef = useRef(null)
   const exportSize = EXPORT_SIZES[exportSizeKey]
+
+  useEffect(() => {
+    if (theme === 'system') {
+      delete document.documentElement.dataset.theme
+    } else {
+      document.documentElement.dataset.theme = theme
+    }
+  }, [theme])
+
+  function cycleTheme() {
+    const next = NEXT_THEME[theme]
+    setTheme(next)
+    saveTheme(next)
+  }
 
   function updateChecked(next) {
     setCheckedIds(next)
@@ -66,20 +89,6 @@ export default function App() {
     setSavedNotice(false)
   }
 
-  function handleClearHistory() {
-    clearHistory()
-    setHistory([])
-  }
-
-  function handleImportHistory(imported) {
-    const valid = imported.filter(
-      (entry) => entry && typeof entry === 'object' && Array.isArray(entry.matchedTermIds),
-    )
-    saveHistory(valid)
-    setHistory(valid)
-    return valid.length
-  }
-
   async function handleExport() {
     if (!cardRef.current) return
     await exportNodeAsPng(cardRef.current, `bingo-${today()}.png`)
@@ -88,8 +97,9 @@ export default function App() {
       date: today(),
       postRef,
       matchedTermIds: checkedIds,
+      termsVersion: TERMS_VERSION,
     }
-    const next = appendSession(session)
+    const next = upsertSession(session)
     setHistory(next)
     setSavedNotice(true)
   }
@@ -104,32 +114,38 @@ export default function App() {
           className={tab === 'card' ? 'is-active' : ''}
           onClick={() => setTab('card')}
         >
-          Card
+          Cartela
         </button>
-        <button
-          type="button"
-          className={tab === 'stats' ? 'is-active' : ''}
-          onClick={() => setTab('stats')}
-        >
-          Stats
+        {STATS_ENABLED ? (
+          <button
+            type="button"
+            className={tab === 'stats' ? 'is-active' : ''}
+            onClick={() => setTab('stats')}
+          >
+            Estatísticas
+          </button>
+        ) : null}
+        <span className="app__tabs-spacer" />
+        <button type="button" className="app__theme-toggle" onClick={cycleTheme}>
+          {THEME_LABEL[theme]}
         </button>
       </nav>
 
-      {tab === 'card' ? (
+      {tab === 'card' || !STATS_ENABLED ? (
         <div className="app__card-view">
           <section className="app__controls">
             <label className="app__field">
-              Paste post text to auto-detect terms
+              Cole o texto do post para detectar os termos automaticamente
               <textarea
                 value={postText}
                 onChange={handlePasteChange}
-                placeholder="Paste the post text here..."
+                placeholder="Cole o texto do post aqui..."
                 rows={5}
               />
             </label>
 
             <label className="app__field">
-              Post link (optional, shown on export)
+              Link do post (opcional, exibido na exportação)
               <input
                 type="text"
                 value={postRef}
@@ -140,7 +156,7 @@ export default function App() {
 
             <div className="app__row">
               <label className="app__field app__field--inline">
-                Export size
+                Tamanho da exportação
                 <select
                   value={exportSizeKey}
                   onChange={(event) => setExportSizeKey(event.target.value)}
@@ -151,35 +167,52 @@ export default function App() {
                 </select>
               </label>
 
-              <button type="button" onClick={handleExport}>Export PNG</button>
-              <button type="button" onClick={handleReset}>New card</button>
+              <button type="button" onClick={handleExport}>Exportar PNG</button>
             </div>
 
-            {savedNotice ? <p className="app__notice">Exported and saved to stats.</p> : null}
-            <p className="app__hint">{matchedCount}/{termsData.length} matched</p>
+            {savedNotice ? (
+              <p className="app__notice">
+                {STATS_ENABLED ? 'Exportado e salvo nas estatísticas.' : 'Exportado.'}
+              </p>
+            ) : null}
+            <p className="app__hint">{matchedCount}/{termsData.length} marcados</p>
           </section>
 
           <div className="app__card-wrapper">
+            <div className="app__card-toolbar">
+              <button type="button" className="app__reset-button" onClick={handleReset}>
+                Nova cartela
+              </button>
+            </div>
             <BingoCard
-              ref={cardRef}
-              title="Buzzword Bingo"
+              title="Bingo de Jargões"
               terms={termsData}
+              termsVersion={TERMS_VERSION}
               checkedIds={checkedIds}
               onToggle={toggleTerm}
               postRef={postRef}
               date={today()}
-              size={exportSize}
               interactive
+            />
+          </div>
+
+          {/* Fixed-size, off-screen clone used only as the PNG export source,
+              so the visible card above can stay a normal responsive layout. */}
+          <div className="app__export-stage" aria-hidden="true">
+            <BingoCard
+              ref={cardRef}
+              title="Bingo de Jargões"
+              terms={termsData}
+              termsVersion={TERMS_VERSION}
+              checkedIds={checkedIds}
+              postRef={postRef}
+              date={today()}
+              size={exportSize}
             />
           </div>
         </div>
       ) : (
-        <StatsPanel
-          terms={termsData}
-          history={history}
-          onClear={handleClearHistory}
-          onImport={handleImportHistory}
-        />
+        <StatsPanel terms={termsData} history={history} />
       )}
     </div>
   )
