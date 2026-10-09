@@ -126,6 +126,8 @@ describe('terms.json (shipped list)', () => {
     ['ditadura', 'Isso lembra uma ditadura.'],
     ['ditadura', 'Ele defende o ditador.'],
     ['ditadura', 'Discurso ditatorial, sempre.'],
+    ['patriotismo', 'Isso é só patriotismo.'],
+    ['patriotismo', 'Somos todos patriotas aqui.'],
   ]
 
   it.each(cases)('%s matches %j', (expectedId, text) => {

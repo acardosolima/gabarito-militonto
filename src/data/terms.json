@@ -47,5 +47,6 @@
     "label": "Ditadura",
     "aliases": [],
     "stems": ["ditadura", "ditador", "ditatorial"]
-  }
+  },
+  { "id": "patriotismo", "label": "Patriotismo", "aliases": [], "stems": ["patriot"] }
 ]

@@ -4,9 +4,10 @@ Buzzword-bingo card for Brazilian political/social online discourse. Paste a
 post's text, it auto-detects known terms, check off the rest by hand, export
 the card as a PNG sized for sharing.
 
-Static React + Vite site, no backend, no login, no tracking. Term matching
-and a small local session history run entirely client-side via
-`localStorage`.
+Static React + Vite site, no backend, no login. Term matching and a small
+local session history run entirely client-side via `localStorage`. Uses
+[Vercel Analytics](https://vercel.com/docs/analytics) for anonymous,
+cookieless page-view counts — no personal data collected.
 
 ## Requirements
 
