@@ -34,12 +34,6 @@
   },
   { "id": "soberania", "label": "Soberania", "aliases": [], "stems": ["soberan"] },
   { "id": "racismo", "label": "Racismo", "aliases": [], "stems": ["racis"] },
-  {
-    "id": "pobre-de-direita",
-    "label": "Pobre de direita",
-    "aliases": ["pobres de direita"],
-    "stems": []
-  },
   { "id": "feminismo", "label": "Feminismo", "aliases": [], "stems": ["feminis"] },
   { "id": "constituicao", "label": "Constituição", "aliases": [], "stems": ["constitu"] },
   {
@@ -48,5 +42,11 @@
     "aliases": [],
     "stems": ["ditadura", "ditador", "ditatorial"]
   },
-  { "id": "patriotismo", "label": "Patriotismo", "aliases": [], "stems": ["patriot"] }
+  { "id": "patriotismo", "label": "Patriotismo", "aliases": [], "stems": ["patriot"] },
+  {
+    "id": "fake-news",
+    "label": "Fake news",
+    "aliases": ["notícia falsa", "notícias falsas"],
+    "stems": []
+  }
 ]

@@ -11,7 +11,7 @@ cookieless page-view counts — no personal data collected.
 
 ## Requirements
 
-- Node.js 20+
+- Node.js 22.22.2+, 24.15.0+, or 26+ (jsdom/Vitest's actual minimums — see `engines` in `package.json`)
 
 ## Development
 

@@ -3,7 +3,6 @@ import BingoCard from './components/BingoCard.jsx'
 import StatsPanel from './components/StatsPanel.jsx'
 import termsData from './data/terms.json'
 import { TERMS_VERSION } from './data/termsVersion.js'
-import { version as APP_VERSION } from '../package.json'
 import { matchTerms } from './lib/match.js'
 import { exportNodeAsPng } from './lib/exportImage.js'
 import {
@@ -23,8 +22,6 @@ const EXPORT_SIZES = {
 
 const NEXT_THEME = { system: 'light', light: 'dark', dark: 'system' }
 const THEME_LABEL = { system: 'Tema: Sistema', light: 'Tema: Claro', dark: 'Tema: Escuro' }
-
-const RELEASE_URL = `https://github.com/acardosolima/gabarito-militonto/releases/tag/v${APP_VERSION}`
 
 // Stats are local-only for now (see Plans.md backlog: DB-backed persistence).
 // Hidden from the UI until that's in place; flip this to bring the tab back.
@@ -129,15 +126,6 @@ export default function App() {
           </button>
         ) : null}
         <span className="app__tabs-spacer" />
-        <a
-          className="app__version-link"
-          href={RELEASE_URL}
-          target="_blank"
-          rel="noreferrer"
-          title="Ver release no GitHub"
-        >
-          v{APP_VERSION}
-        </a>
         <button type="button" className="app__theme-toggle" onClick={cycleTheme}>
           {THEME_LABEL[theme]}
         </button>

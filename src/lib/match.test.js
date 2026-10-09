@@ -116,8 +116,6 @@ describe('terms.json (shipped list)', () => {
     ['luta-de-classes', 'Isso é luta de classe, sempre foi.'],
     ['soberania', 'Discurso soberanista.'],
     ['racismo', 'Comentário racista, de novo.'],
-    ['pobre-de-direita', 'Ele é um pobre de direita, nunca vai entender.'],
-    ['pobre-de-direita', 'Esses pobres de direita de novo.'],
     ['feminismo', 'Chega de feminismo.'],
     ['feminismo', 'Ela é muito feminista.'],
     ['constituicao', 'Isso fere a Constituição.'],
@@ -128,6 +126,9 @@ describe('terms.json (shipped list)', () => {
     ['ditadura', 'Discurso ditatorial, sempre.'],
     ['patriotismo', 'Isso é só patriotismo.'],
     ['patriotismo', 'Somos todos patriotas aqui.'],
+    ['fake-news', 'Isso é fake news.'],
+    ['fake-news', 'Para de espalhar notícia falsa.'],
+    ['fake-news', 'Cheio de notícias falsas, como sempre.'],
   ]
 
   it.each(cases)('%s matches %j', (expectedId, text) => {
