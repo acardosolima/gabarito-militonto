@@ -185,7 +185,7 @@ export default function App() {
               </button>
             </div>
             <BingoCard
-              title="Bingo de Jargões"
+              title="Gabarito do Militonto"
               terms={termsData}
               termsVersion={TERMS_VERSION}
               checkedIds={checkedIds}
@@ -201,7 +201,7 @@ export default function App() {
           <div className="app__export-stage" aria-hidden="true">
             <BingoCard
               ref={cardRef}
-              title="Bingo de Jargões"
+              title="Gabarito do Militonto"
               terms={termsData}
               termsVersion={TERMS_VERSION}
               checkedIds={checkedIds}
